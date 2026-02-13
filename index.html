@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>San Valentín 💖</title>
+
+<style>
+body {
+    background: pink;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    font-family: Arial, sans-serif;
+    text-align: center;
+}
+
+button {
+    padding: 15px 30px;
+    font-size: 20px;
+    border: none;
+    border-radius: 20px;
+    background: red;
+    color: white;
+    cursor: pointer;
+    margin: 10px;
+}
+
+button:hover {
+    background: darkred;
+}
+
+#corazon-container {
+    position: relative;
+    display: none;
+}
+
+#corazon {
+    width: 300px;
+}
+
+#foto {
+    position: absolute;
+    top: 70px;
+    left: 85px;
+    width: 130px;
+    border-radius: 50%;
+    display: none;
+}
+
+#pregunta, #respuesta {
+    font-size: 28px;
+    margin-top: 20px;
+    display: none;
+}
+</style>
+</head>
+
+<body>
+
+<h1>Hola 💕</h1>
+<button id="inicioBtn">Clic aquí</button>
+
+<div id="corazon-container">
+    <img id="corazon" src="corazon.png">
+    <img id="foto" src="foto.png">
+</div>
+
+<div id="pregunta">¿Quieres ser mi San Valentín? 💘</div>
+
+<div id="botones">
+    <button id="siBtn" style="display:none;">Sí</button>
+    <button id="noBtn" style="display:none;">No</button>
+</div>
+
+<div id="respuesta"></div>
+
+<script>
+let inicioBtn = document.getElementById("inicioBtn");
+let corazon = document.getElementById("corazon");
+let foto = document.getElementById("foto");
+let pregunta = document.getElementById("pregunta");
+let siBtn = document.getElementById("siBtn");
+let noBtn = document.getElementById("noBtn");
+let respuesta = document.getElementById("respuesta");
+let contenedor = document.getElementById("corazon-container");
+
+// Abrir corazón
+inicioBtn.onclick = function() {
+    inicioBtn.style.display = "none";
+    contenedor.style.display = "block";
+    setTimeout(() => {
+        corazon.src = "corazon_roto.png";
+        foto.style.display = "block";
+        pregunta.style.display = "block";
+        siBtn.style.display = "inline-block";
+        noBtn.style.display = "inline-block";
+    }, 1000);
+};
+
+// Si dice SÍ
+siBtn.onclick = function() {
+    pregunta.style.display = "none";
+    siBtn.style.display = "none";
+    noBtn.style.display = "none";
+    respuesta.innerHTML = "YUPI 😍<br><img src='yupi.png' width='200'>";
+    respuesta.style.display = "block";
+};
+
+// Si dice NO (bucle infinito)
+noBtn.onclick = function() {
+    respuesta.style.display = "block";
+    respuesta.innerHTML = "¿Seguro? 🤨";
+};
+</script>
+
+</body>
+</html>
