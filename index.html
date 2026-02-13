@@ -16,11 +16,48 @@ body {
     text-align: center;
 }
 
-button {
-    padding: 15px 30px;
-    font-size: 20px;
-    border: none;
+#corazonInicio {
+    width: 300px;
+    cursor: pointer;
+}
+
+#corazonContainer {
+    position: relative;
+    display: none;
+}
+
+.corazonParte {
+    width: 180px;
+}
+
+#izq {
+    position: absolute;
+    left: -100px;
+    transition: 1s;
+}
+
+#der {
+    position: absolute;
+    right: -100px;
+    transition: 1s;
+}
+
+#foto {
+    width: 150px;
     border-radius: 20px;
+    display: none;
+}
+
+#principal {
+    width: 200px;
+    display: none;
+}
+
+button {
+    padding: 12px 25px;
+    font-size: 18px;
+    border: none;
+    border-radius: 15px;
     background: red;
     color: white;
     cursor: pointer;
@@ -31,27 +68,9 @@ button:hover {
     background: darkred;
 }
 
-#corazon-container {
-    position: relative;
-    display: none;
-}
-
-#corazon {
-    width: 300px;
-}
-
-#foto {
-    position: absolute;
-    top: 70px;
-    left: 85px;
-    width: 130px;
-    border-radius: 50%;
-    display: none;
-}
-
 #pregunta, #respuesta {
-    font-size: 28px;
-    margin-top: 20px;
+    font-size: 26px;
+    margin-top: 15px;
     display: none;
 }
 </style>
@@ -59,13 +78,23 @@ button:hover {
 
 <body>
 
-<h1>Hola 💕</h1>
-<button id="inicioBtn">Clic aquí</button>
-
-<div id="corazon-container">
-    <img id="corazon" src="corazon.png">
-    <img id="foto" src="foto.png">
+<!-- CORAZÓN INICIAL -->
+<div id="inicio">
+    <img id="corazonInicio" src="imagenes/corazon_cerrado.png">
+    <h2>Clic aquí 💖</h2>
 </div>
+
+<!-- CORAZÓN PARTIDO -->
+<div id="corazonContainer">
+    <img id="izq" class="corazonParte" src="imagenes/corazon_izq.png">
+    <img id="der" class="corazonParte" src="imagenes/corazon_der.png">
+</div>
+
+<!-- Imagen detrás del corazón -->
+<img id="foto" src="imagenes/foto.png">
+
+<!-- Imagen principal arriba de la pregunta -->
+<img id="principal" src="imagenes/imagen_principal.png">
 
 <div id="pregunta">¿Quieres ser mi San Valentín? 💘</div>
 
@@ -77,41 +106,48 @@ button:hover {
 <div id="respuesta"></div>
 
 <script>
-let inicioBtn = document.getElementById("inicioBtn");
-let corazon = document.getElementById("corazon");
+let corazonInicio = document.getElementById("corazonInicio");
+let inicio = document.getElementById("inicio");
+let izq = document.getElementById("izq");
+let der = document.getElementById("der");
 let foto = document.getElementById("foto");
+let principal = document.getElementById("principal");
 let pregunta = document.getElementById("pregunta");
 let siBtn = document.getElementById("siBtn");
 let noBtn = document.getElementById("noBtn");
 let respuesta = document.getElementById("respuesta");
-let contenedor = document.getElementById("corazon-container");
+let contenedor = document.getElementById("corazonContainer");
 
-// Abrir corazón
-inicioBtn.onclick = function() {
-    inicioBtn.style.display = "none";
+// CLICK AL CORAZÓN
+corazonInicio.onclick = function() {
+    inicio.style.display = "none";
     contenedor.style.display = "block";
+
+    // Abrir corazón
     setTimeout(() => {
-        corazon.src = "corazon_roto.png";
+        izq.style.left = "-200px";
+        der.style.right = "-200px";
         foto.style.display = "block";
+        principal.style.display = "block";
         pregunta.style.display = "block";
         siBtn.style.display = "inline-block";
         noBtn.style.display = "inline-block";
-    }, 1000);
+    }, 500);
 };
 
-// Si dice SÍ
+// SI
 siBtn.onclick = function() {
     pregunta.style.display = "none";
     siBtn.style.display = "none";
     noBtn.style.display = "none";
-    respuesta.innerHTML = "YUPI 😍<br><img src='yupi.png' width='200'>";
+   respuesta.innerHTML = "YUPI 😍<br><img src='imagenes/yupi.gif' width='200'>";
     respuesta.style.display = "block";
 };
 
-// Si dice NO (bucle infinito)
+// NO (bucle infinito)
 noBtn.onclick = function() {
-    respuesta.style.display = "block";
     respuesta.innerHTML = "¿Seguro? 🤨";
+    respuesta.style.display = "block";
 };
 </script>
 
