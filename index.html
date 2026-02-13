@@ -2,153 +2,136 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>San Valentín 💖</title>
 
 <style>
-body {
-    background: rgb(224, 224, 224);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: 100vh;
-    font-family: Arial, sans-serif;
+
+body{
+    background: white;
     text-align: center;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
 }
 
-#corazonInicio {
-    width: 300px;
-    cursor: pointer;
-}
-
-#corazonContainer {
+#contenedor{
     position: relative;
-    display: none;
+    width: 300px;
+    max-width: 90vw;
+    margin: auto;
+    margin-top: 60px;
 }
 
-.corazonParte {
-    width: 180px;
-}
-
-#izq {
+.corazon{
     position: absolute;
-    left: -100px;
-    transition: 1s;
-}
-
-#der {
-    position: absolute;
-    right: -100px;
-    transition: 1s;
-}
-
-#foto {
     width: 150px;
-    border-radius: 20px;
-    display: none;
+    transition: 1s;
 }
 
-#principal {
-    width: 200px;
-    display: none;
+#corazon_izq{
+    left: 0;
 }
 
-button {
-    padding: 12px 25px;
-    font-size: 18px;
-    border: none;
-    border-radius: 15px;
-    background: red;
-    color: white;
+#corazon_der{
+    right: 0;
+}
+
+#corazon_cerrado{
+    width: 100%;
     cursor: pointer;
-    margin: 10px;
 }
 
-button:hover {
-    background: darkred;
-}
-
-#pregunta, #respuesta {
-    font-size: 26px;
-    margin-top: 15px;
+#contenido{
     display: none;
+    margin-top: 20px;
 }
+
+#imagen_principal{
+    width: 200px;
+    max-width: 80vw;
+    border-radius: 15px;
+}
+
+#foto{
+    width: 200px;
+    max-width: 80vw;
+    border-radius: 15px;
+    margin-top: 15px;
+}
+
+button{
+    padding: 10px 20px;
+    font-size: 16px;
+    margin: 5px;
+    border: none;
+    background: pink;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+button:hover{
+    background: hotpink;
+}
+
+#yupi{
+    width: 120px;
+    margin-top: 20px;
+}
+
 </style>
 </head>
 
 <body>
 
-<!-- CORAZÓN INICIAL -->
-<div id="inicio">
-    <img id="corazonInicio" src="imagenes/corazon_cerrado.png">
-    <h2>Clic aquí 💖</h2>
+<div id="contenedor">
+
+    <!-- CORAZÓN CERRADO -->
+    <img id="corazon_cerrado" src="imagenes/corazon_cerrado.png" onclick="abrirCorazon()">
+
+    <!-- CORAZÓN PARTIDO -->
+    <img id="corazon_izq" class="corazon" src="imagenes/corazon_izq.png">
+    <img id="corazon_der" class="corazon" src="imagenes/corazon_der.png">
+
 </div>
 
-<!-- CORAZÓN PARTIDO -->
-<div id="corazonContainer">
-    <img id="izq" class="corazonParte" src="imagenes/corazon_izq.png">
-    <img id="der" class="corazonParte" src="imagenes/corazon_der.png">
+<div id="contenido">
+    <h2>¿Quieres ser mi San Valentín? 💖</h2>
+
+    <img id="imagen_principal" src="imagenes/imagen_principal.png"><br>
+
+    <img id="foto" src="imagenes/foto.png"><br>
+
+    <button onclick="cambiarFoto()">Cambiar foto</button>
+
+    <br>
+    <img id="yupi" src="imagenes/yupi.gif">
 </div>
 
-<!-- Imagen detrás del corazón -->
-<img id="foto" src="imagenes/foto.png">
-
-<!-- Imagen principal arriba de la pregunta -->
-<img id="principal" src="imagenes/imagen_principal.png">
-
-<div id="pregunta">¿Quieres ser mi San Valentín? 💘</div>
-
-<div id="botones">
-    <button id="siBtn" style="display:none;">Sí</button>
-    <button id="noBtn" style="display:none;">No</button>
-</div>
-
-<div id="respuesta"></div>
 
 <script>
-let corazonInicio = document.getElementById("corazonInicio");
-let inicio = document.getElementById("inicio");
-let izq = document.getElementById("izq");
-let der = document.getElementById("der");
-let foto = document.getElementById("foto");
-let principal = document.getElementById("principal");
-let pregunta = document.getElementById("pregunta");
-let siBtn = document.getElementById("siBtn");
-let noBtn = document.getElementById("noBtn");
-let respuesta = document.getElementById("respuesta");
-let contenedor = document.getElementById("corazonContainer");
 
-// CLICK AL CORAZÓN
-corazonInicio.onclick = function() {
-    inicio.style.display = "none";
-    contenedor.style.display = "block";
+let fotos = ["foto.png"];
+let indice = 0;
 
-    // Abrir corazón
-    setTimeout(() => {
-        izq.style.left = "-200px";
-        der.style.right = "-200px";
-        foto.style.display = "block";
-        principal.style.display = "block";
-        pregunta.style.display = "block";
-        siBtn.style.display = "inline-block";
-        noBtn.style.display = "inline-block";
-    }, 500);
-};
+function abrirCorazon(){
+    document.getElementById("corazon_cerrado").style.display = "none";
 
-// SI
-siBtn.onclick = function() {
-    pregunta.style.display = "none";
-    siBtn.style.display = "none";
-    noBtn.style.display = "none";
-   respuesta.innerHTML = "YUPI 😍<br><img src='imagenes/yupi.gif' width='200'>";
-    respuesta.style.display = "block";
-};
+    document.getElementById("corazon_izq").style.left = "-180px";
+    document.getElementById("corazon_der").style.right = "-180px";
 
-// NO (bucle infinito)
-noBtn.onclick = function() {
-    respuesta.innerHTML = "¿Seguro? 🤨";
-    respuesta.style.display = "block";
-};
+    document.getElementById("contenido").style.display = "block";
+}
+
+function cambiarFoto(){
+    indice++;
+    if(indice >= fotos.length){
+        indice = 0;
+    }
+    document.getElementById("foto").src = "imagenes/" + fotos[indice];
+}
+
 </script>
 
 </body>
