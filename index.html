@@ -3,44 +3,36 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>San Valentín 💖</title>
 
 <style>
 
 body{
-    background: white;
+    background: #ffb6c1;
     text-align: center;
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
 }
 
-#contenedor{
-    position: relative;
-    width: 300px;
-    max-width: 90vw;
-    margin: auto;
-    margin-top: 60px;
-}
-
-.corazon{
-    position: absolute;
-    width: 150px;
+#corazon{
+    width: 220px;
+    max-width: 80vw;
+    cursor: pointer;
+    margin-top: 80px;
     transition: 1s;
 }
 
-#corazon_izq{
-    left: 0;
+/* Animación de subir y desaparecer */
+.subir{
+    transform: translateY(-200px) scale(0.2);
+    opacity: 0;
 }
 
-#corazon_der{
-    right: 0;
-}
-
-#corazon_cerrado{
-    width: 100%;
-    cursor: pointer;
+#textoClic{
+    font-size: 22px;
+    color: white;
+    font-weight: bold;
 }
 
 #contenido{
@@ -48,36 +40,39 @@ body{
     margin-top: 20px;
 }
 
-#imagen_principal{
-    width: 200px;
-    max-width: 80vw;
-    border-radius: 15px;
+#pregunta{
+    font-size: 32px;
+    color: white;
+    font-weight: bold;
+    margin-bottom: 10px;
 }
 
-#foto{
-    width: 200px;
+#imagen_principal, #foto{
+    width: 220px;
     max-width: 80vw;
     border-radius: 15px;
-    margin-top: 15px;
+    margin: 10px;
 }
 
 button{
-    padding: 10px 20px;
-    font-size: 16px;
-    margin: 5px;
+    padding: 12px 25px;
+    font-size: 18px;
+    margin: 8px;
     border: none;
-    background: pink;
-    border-radius: 10px;
+    border-radius: 15px;
     cursor: pointer;
+    background: white;
+    font-weight: bold;
 }
 
 button:hover{
     background: hotpink;
+    color: white;
 }
 
 #yupi{
-    width: 120px;
-    margin-top: 20px;
+    width: 150px;
+    margin-top: 15px;
 }
 
 </style>
@@ -85,51 +80,55 @@ button:hover{
 
 <body>
 
-<div id="contenedor">
-
-    <!-- CORAZÓN CERRADO -->
-    <img id="corazon_cerrado" src="imagenes/corazon_cerrado.png" onclick="abrirCorazon()">
-
-    <!-- CORAZÓN PARTIDO -->
-    <img id="corazon_izq" class="corazon" src="imagenes/corazon_izq.png">
-    <img id="corazon_der" class="corazon" src="imagenes/corazon_der.png">
-
+<div id="inicio">
+    <img id="corazon" src="imagenes/corazon_cerrado.png" onclick="abrir()">
+    <div id="textoClic">Clic aquí 💘</div>
 </div>
 
 <div id="contenido">
-    <h2>¿Quieres ser mi San Valentín? 💖</h2>
+    <div id="pregunta">¿Quieres ser mi San Valentín? 💖</div>
 
     <img id="imagen_principal" src="imagenes/imagen_principal.png"><br>
-
     <img id="foto" src="imagenes/foto.png"><br>
 
-    <button onclick="cambiarFoto()">Cambiar foto</button>
+    <div id="botones">
+        <button onclick="decirSi()">Sí 💕</button>
+        <button onclick="decirNo()">No 😢</button>
+    </div>
 
-    <br>
-    <img id="yupi" src="imagenes/yupi.gif">
+    <div id="respuesta"></div>
 </div>
-
 
 <script>
 
-let fotos = ["foto.png"];
-let indice = 0;
+function abrir(){
+    let corazon = document.getElementById("corazon");
+    corazon.classList.add("subir");
 
-function abrirCorazon(){
-    document.getElementById("corazon_cerrado").style.display = "none";
-
-    document.getElementById("corazon_izq").style.left = "-180px";
-    document.getElementById("corazon_der").style.right = "-180px";
-
-    document.getElementById("contenido").style.display = "block";
+    setTimeout(()=>{
+        document.getElementById("inicio").style.display="none";
+        document.getElementById("contenido").style.display="block";
+    },1000);
 }
 
-function cambiarFoto(){
-    indice++;
-    if(indice >= fotos.length){
-        indice = 0;
-    }
-    document.getElementById("foto").src = "imagenes/" + fotos[indice];
+function decirNo(){
+    document.getElementById("respuesta").innerHTML = `
+        <h2 style="color:white;">¿Seguro? 🤨</h2>
+        <button onclick="decirSi()">Sí</button>
+        <button onclick="decirNo()">No</button>
+    `;
+}
+
+function decirSi(){
+    document.getElementById("respuesta").innerHTML = `
+        <h2 style="color:white;">YUPI 😍</h2>
+        <img id="yupi" src="imagenes/yupi.gif"><br><br>
+        <button onclick="volver()">Cambio de opinión</button>
+    `;
+}
+
+function volver(){
+    document.getElementById("respuesta").innerHTML = "";
 }
 
 </script>
